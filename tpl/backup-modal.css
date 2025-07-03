@@ -1,0 +1,199 @@
+/* Estilos Genéricos para Modais */
+/* Garante que a área de conteúdo da modal siga o tema principal */
+.ui-dialog .ui-dialog-content {
+  padding: 0 !important;
+  background: #f3f3f3 !important; /* Cor de fundo do tema */
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.modal-section {
+  padding: 15px;
+  background-color: #e1e1e1; /* Cor de fundo da seção do tema */
+  border: 1px solid #bbbbbb;   /* Cor da borda do tema */
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+.modal-section h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: black;
+  border-bottom: 1px solid #bbbbbb;
+  padding-bottom: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.modal-description {
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: black;
+  line-height: 1.4;
+}
+
+.small-text {
+  font-size: 11px;
+  color: #00008b; /* Azul escuro para melhor contraste */
+  font-style: italic;
+}
+
+.section-divider {
+  height: 1px;
+  background-color: #bbbbbb;
+  margin: 15px 0;
+}
+
+/* Botões */
+.action-button-container {
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Botão de Ação Principal (Confirmar, etc.) */
+.ui-dialog .ui-button.primary-button {
+  color: black !important;
+  font-weight: bold; /* Dar mais destaque */
+  border: 1px solid #999;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#dcdcdc), to(#c0c0c0));
+  background: -moz-linear-gradient(top, #dcdcdc, #c0c0c0);
+}
+
+.ui-dialog .ui-button.primary-button:hover {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#d3d3d3));
+  background: -moz-linear-gradient(top, white, #d3d3d3);
+}
+
+/* Botão de Ação Secundária (Cancelar) */
+.ui-dialog .ui-button.secondary-button {
+  color: black !important;
+  border: 1px solid #bbbbbb;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(gainsboro));
+  background: -moz-linear-gradient(top, #eee, gainsboro);
+}
+
+.ui-dialog .ui-button.secondary-button:hover {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
+  background: -moz-linear-gradient(top, white, #eeeeee);
+}
+
+/* Input de arquivo */
+.file-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.file-input-label {
+  color: black;
+  padding: 5px 11px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(gainsboro));
+  background: -moz-linear-gradient(top, #eee, gainsboro);
+  border: 1px solid #bbbbbb;
+  box-shadow: 0 0 5px #ccc;
+  font-size: 12px;
+}
+
+.file-input-label:hover {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
+  background: -moz-linear-gradient(top, white, #eeeeee);
+}
+
+.file-name-display {
+  margin-top: 5px;
+  padding: 3px 5px;
+  background-color: #f3f3f3;
+  border: 1px solid #bbbbbb;
+  font-style: italic;
+  color: #00008b;
+  font-size: 11px;
+}
+
+/* Forms dentro de modais */
+.modal-section form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: black;
+}
+
+.modal-section form input[type="number"],
+.modal-section form input[type="text"] {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #bbbbbb;
+  background-color: #f3f3f3;
+  color: black;
+  border-radius: 3px;
+}
+
+/* Preview Pane para confirmação */
+.preview-pane {
+    width: 48%;
+}
+
+.preview-pane h3 {
+    margin-top: 0;
+    font-size: 13px;
+    color: black;
+}
+
+.preview-pane textarea {
+    width: 100%;
+    height: 300px;
+    font-family: monospace;
+    background-color: #f3f3f3;
+    border: 1px solid #bbbbbb;
+    color: black;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/* Código para compatibilidade com o tema */
+.modal-container code {
+  font-family: monospace;
+  background-color: #dcdcdc;
+  padding: 1px 3px;
+  border: 1px solid #bbbbbb;
+  color: #00008b;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .file-input-container,
+  .preview-pane {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .file-input-label,
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}

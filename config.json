@@ -1,0 +1,9 @@
+{
+  "savePath": "/etc/ip6tables/rules.save",
+  "user": "admin",
+  "pass": "admin",
+  "theme": "Silver",
+  "themes": [],
+  "httpPort": 1338,
+  "websocketPort": 8002
+}

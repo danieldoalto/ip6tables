@@ -1,6 +1,6 @@
-# ip6tables WEB GUI - Fork
+# ip6tables WEB GUI
 
-> **Nota**: Esta é a versão IPv6 do projeto, adaptada do fork aprimorado [danieldoalto/iptables](https://github.com/danieldoalto/iptables), com suporte completo ao ip6tables.
+> **Nota**: Esta é uma interface web para gerenciamento de regras ip6tables (IPv6) em sistemas Linux.
 
 ![ip6tables Web Interface](http://i.mcgl.ru/RGGJv4MAvA)
 
@@ -88,6 +88,21 @@
 ## 🛠️ Troubleshooting e Boas Práticas
 
 - Ao editar uma chain pelo modo textual, a numeração exibida é apenas para conferência visual e não faz parte da regra aplicada.
+- Execute o servidor com permissões de superusuário (sudo) para garantir o funcionamento correto dos comandos ip6tables.
+- Os logs frequentes no terminal são normais e indicam o polling periódico para atualização dos contadores.
+
+## 🔄 Atualizações Recentes
+
+- **Correção de Permissões**: Adicionado prefixo `sudo` a todos os comandos ip6tables para evitar erros de permissão.
+- **Centralização de Configurações**: Todas as configurações do servidor agora são carregadas do arquivo `config.json`.
+- **Correção do Botão Reset**: Corrigido o funcionamento do botão de reset para zerar corretamente os contadores da chain atual.
+- **Correção de Visualização**: Corrigida a função `monitor` para usar `ip6tables` em vez de `iptables`, garantindo que os contadores IPv6 sejam exibidos corretamente.
+- **Melhorias na Documentação**: Atualização da documentação técnica em `INFOS.md`.
+
+## 🔗 Links
+
+- [Repositório GitHub](https://github.com/danieldoalto/ip6tables)
+- [Documentação Técnica](INFOS.md)
 - O sistema remove automaticamente a numeração antes de aplicar as regras, evitando duplicidade.
 - Caso observe qualquer comportamento inesperado (ex: regras duplicadas ou não aplicadas), verifique se está usando a versão mais recente do sistema.
 - Todas as operações de edição textual são atômicas: apenas a chain editada é alterada, as demais chains/tabelas permanecem intactas.

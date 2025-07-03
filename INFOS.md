@@ -117,10 +117,19 @@ Essa abordagem mantém o código original o mais intacto possível, facilitando 
   - `child_process`
   - `crypto`
 
-## Segurança
-- Autenticação necessária para acessar as funcionalidades
-- Recomenda-se executar atrás de um proxy reverso com HTTPS
-- As credenciais devem ser protegidas
+## Segurança e Requisitos
+
+### Requisitos de Execução
+- Node.js 14.x ou superior
+- Permissões de superusuário (sudo) para executar comandos ip6tables
+- Sistema Linux com suporte a ip6tables
+
+### Recomendações de Segurança
+- **Autenticação**: Altere as credenciais padrão (admin/admin) imediatamente após a primeira execução
+- **HTTPS**: Recomenda-se executar atrás de um proxy reverso com HTTPS para proteger as credenciais
+- **Permissões**: Execute o servidor com `sudo node server.js` para garantir permissões adequadas
+- **Firewall**: Restrinja o acesso às portas 1338 (HTTP) e 8002 (WebSocket) apenas para IPs confiáveis
+- **Logs**: Monitore os logs do sistema para identificar possíveis problemas ou tentativas de acesso não autorizado
 
 ## Fluxo de Trabalho
 1. O usuário faz login na interface web
@@ -132,6 +141,39 @@ Essa abordagem mantém o código original o mais intacto possível, facilitando 
 - Concluída a documentação interna (comentários) de todos os principais arquivos JavaScript do projeto (`server.js`, `handlers.js`, `tpl/client.js`, `tpl/template.js`, `tpl/tools.js`).
 - Organização do código em módulos.
 - Melhoria nos comentários e documentação geral.
+
+### Correções de Bugs e Melhorias de Desempenho (2025-07-03)
+
+#### 1. Correção de Permissões
+- **Problema**: Comandos ip6tables estavam sendo executados sem privilégios de superusuário, causando falhas silenciosas.
+- **Solução**: Adicionado prefixo `sudo` a todos os comandos ip6tables em `handlers.js`, incluindo:
+  - Função `showChannel`: Para exibição de regras
+  - Função `deleteRule`: Para remoção de regras
+  - Função `insertRule`: Para adição e reset de regras
+  - Função `monitor`: Para monitoramento de contadores
+- **Impacto**: Chains customizadas agora aparecem corretamente na interface e todas as operações funcionam com permissões adequadas.
+
+#### 2. Centralização de Configurações
+- **Problema**: Parâmetros de configuração como portas HTTP e WebSocket estavam hardcoded no código.
+- **Solução**: Todos os parâmetros de configuração foram centralizados no arquivo `config.json`.
+- **Implementação**: O servidor foi refatorado para carregar dinamicamente as configurações, seguindo os princípios SOLID e DRY.
+- **Impacto**: Maior facilidade de manutenção e configuração do sistema.
+
+#### 3. Correção do Botão Reset
+- **Problema**: O botão de reset não zerava corretamente os contadores da chain atual na interface.
+- **Causa Raíz**: Dois problemas identificados:
+  1. Falta de permissões para executar comandos ip6tables
+  2. Função `monitor` utilizava `iptables` (IPv4) em vez de `ip6tables` (IPv6)
+- **Solução**:
+  1. Adicionado prefixo `sudo` ao comando de reset em `insertRule`
+  2. Corrigida a função `monitor` para usar `sudo ip6tables` em vez de `iptables`
+  3. Modificada a função `resetCounters` no frontend para forçar uma atualização completa após o reset
+- **Impacto**: O botão de reset agora zera corretamente os contadores e a interface reflete as mudanças imediatamente.
+
+#### 4. Logging e Depuração
+- **Melhoria**: Adicionados logs detalhados para execução de comandos ip6tables.
+- **Implementação**: Uso de `console.log()` para registrar comandos executados e seus resultados.
+- **Impacto**: Facilita a depuração e identificação de problemas em tempo real.
 - **Implementada funcionalidade de Movimentação de Regras**: 
   - **Backend**: Adicionadas as rotas `/previewMoveRules` e `/moveRulesBlock` em `handlers_ext.js` para pré-visualizar e aplicar a movimentação de blocos de regras de forma atômica.
   - **Frontend**: Criada uma janela modal para que o usuário defina o bloco de regras a ser movido e o destino, com uma tela de confirmação que exibe um `diff` visual das mudanças antes de aplicá-las.
